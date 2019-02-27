@@ -1,3 +1,5 @@
+package aaaRandomTinkering;
+
 public class TinkeringMultipleThreads {
 
     public static void main(String[] args) {
@@ -30,7 +32,7 @@ class ExtendThread extends Thread {
     @Override
     public void run() {
         for (int i = 0; i < 10; i++) {
-            System.out.println(i + ": ExtendThread");
+            System.out.println(i + ": aaaRandomTinkering.ExtendThread");
 
             try {
                 Thread.sleep(100);
@@ -45,7 +47,7 @@ class RunnableInterface implements Runnable {
     @Override
     public void run() {
         for (int i = 0; i < 10; i++) {
-            System.out.println(i + ": RunnableInterface");
+            System.out.println(i + ": aaaRandomTinkering.RunnableInterface");
 
             try {
                 Thread.sleep(100);

@@ -1,4 +1,4 @@
-package gui;
+package aaaRandomTinkering;
 
 import javax.swing.*;
 import java.awt.*;
@@ -23,7 +23,7 @@ public class PatternRecognition extends JFrame {
 
     public void initPatternRecognition() {
 
-        frameIconImageAddress = "src/gui/turbo_knight(557x749).png";
+        frameIconImageAddress = "resources/aaaRandomImages/turbo_knight(557x749).png";
         frameIcon = new ImageIcon(frameIconImageAddress).getImage();
         setIconImage(frameIcon);
         setTitle("Pattern Recognition");
@@ -52,7 +52,7 @@ public class PatternRecognition extends JFrame {
 
         public MainPanel() {
 
-            mainBackgroundImageAddress = "src/gui/cyberpunk_wallpapers(1920x1080).jpg";
+            mainBackgroundImageAddress = "resources/aaaRandomImages/cyberpunk_wallpapers(1920x1080).jpg";
             mainBackground = new ImageIcon(mainBackgroundImageAddress).getImage();
 
         } // **** end MainPanel() constructor ****
@@ -89,43 +89,17 @@ public class PatternRecognition extends JFrame {
             buttonB.setMargin( new Insets(0, 0, 0, 0) );
 
             buttonBail = new JButton("JACK OUT!");
-            buttonBailImageAddress = "src/gui/pattern_recognition_icon(256x256).png";
+            buttonBailImageAddress = "resources/aaaRandomImages/pattern_recognition_icon(256x256).png";
             buttonBailImageIcon = new ImageIcon(buttonBailImageAddress);
             buttonBail.setIcon(buttonBailImageIcon);
             buttonBail.setToolTipText("bail!");
             buttonBail.setMargin( new Insets(0, 0, 0, 0) );
-
-            buttonA.addActionListener( new ButtonAActionListener() );
-            buttonB.addActionListener( new ButtonBActionListener() );
-            buttonBail.addActionListener( new ButtonBailActionListener() );
 
             add(buttonA);
             add(buttonB);
             add(buttonBail);
 
         } // **** end SecondaryPanel() constructor ****
-
-        class ButtonAActionListener implements ActionListener {
-            ConsolePanel consolePanelLocal = (ConsolePanel)consolePanel;
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                consolePanelLocal.getConsoleTextArea().append("A button!\n");
-            }
-        }
-        class ButtonBActionListener implements ActionListener {
-            ConsolePanel consolePanelLocal = (ConsolePanel)consolePanel;
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                consolePanelLocal.getConsoleTextArea().append("B button!\n");
-            }
-        }
-        class ButtonBailActionListener implements ActionListener {
-            ConsolePanel consolePanelLocal = (ConsolePanel)consolePanel;
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                consolePanelLocal.getConsoleTextArea().append("JACK OUT!!! no time! JACK OUT!!!\n");
-            }
-        }
 
     } // **** end SecondaryPanel inner-class ****
 
