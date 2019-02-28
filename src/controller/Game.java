@@ -1,17 +1,30 @@
 package controller;
 
+import model.board.Board;
 import view.Displayer;
 
 public class Game {
 
-    Displayer displayer;
+    private Displayer displayer;
+    private Board board;
 
     public Game() {
-        displayer = new Displayer();
+
+        board = new Board();
+        displayer = new Displayer(this);
+
     } // **** end controller.Game() constructor ****
 
+    public Board getBoard() {
+        return board;
+    }
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public static void main(String[] args) {
         new Game();
     }
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 } // **** end controller.Game class ****
