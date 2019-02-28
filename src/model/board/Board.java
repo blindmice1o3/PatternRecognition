@@ -23,14 +23,9 @@ public class Board {
 
     public enum File { A, B, C, D, E, F, G, H }
 
-    private static int row = Rank.values().length;
-    private static int column = File.values().length;
+    private int row = Rank.values().length;
+    private int column = File.values().length;
     private Tile[][] tiles;
-
-    public static void main(String[] args) {
-        System.out.println("row: " + row);
-        System.out.println("column: " + column);
-    }
 
     public Board() {
         tiles = new Tile[row][column];

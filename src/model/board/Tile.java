@@ -6,19 +6,35 @@ import java.awt.*;
 
 public class Tile {
 
-    public static final int WIDTH = 32, HEIGHT = 32;
+    public static final int WIDTH = 64, HEIGHT = 64;
 
     private String id;
     private Color color;
 
     private Token token;
+    private boolean border = false;
+
+    private Rectangle bound;
 
     public Tile(String id, Color color) {
         this.id = id;
         this.color = color;
+        bound = new Rectangle();
     }
 
     // GETTERS & SETTERS
+
+    public boolean isBorder() {
+        return border;
+    }
+
+    public void setBorder(boolean border) {
+        this.border = border;
+    }
+
+    public Rectangle getBound() {
+        return bound;
+    }
 
     public String getId() {
         return id;
