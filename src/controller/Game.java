@@ -13,7 +13,11 @@ public class Game {
         board = new Board();
         displayer = new Displayer(this);
 
+        initGame();
+
     } // **** end controller.Game() constructor ****
+
+
 
     public Board getBoard() {
         return board;

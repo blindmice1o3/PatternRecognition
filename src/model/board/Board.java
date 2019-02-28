@@ -25,6 +25,7 @@ public class Board {
 
     private int row = Rank.values().length;
     private int column = File.values().length;
+
     private Tile[][] tiles;
 
     public Board() {
@@ -50,7 +51,8 @@ public class Board {
                     } else {
                         color = Color.YELLOW;
                     }
-                    tiles[rowIndex][columnIndex] = new Tile(rank.getRank() + file.toString(), color); // Tile instantiation!
+                    // !!!Tile INSTANTIATION!!!
+                    tiles[rowIndex][columnIndex] = new Tile(rank.getRank() + file.toString(), color);
                 }
                 // rowIndex is EVEN. pattern: LIGHT then DARK
                 else {
@@ -60,14 +62,16 @@ public class Board {
                     } else {
                         color = Color.BLUE;
                     }
-                    tiles[rowIndex][columnIndex] = new Tile(rank.getRank() + file.toString(), color); // Tile instantiation!
+                    // !!!Tile INSTANTIATION!!!
+                    tiles[rowIndex][columnIndex] = new Tile(rank.getRank() + file.toString(), color);
                 }
 
                 columnIndex++;               // Increment the column index.
             } // end inner for-loop
 
+            // Reset the columnIndex for iterating through the next row (Rank).
             columnIndex = 0;
-            rowIndex--;                      // DECREMENT the row index.
+            rowIndex--;                      // !!!DECREMENT!!! the row index.
         } // end outer for-loop
     }
 

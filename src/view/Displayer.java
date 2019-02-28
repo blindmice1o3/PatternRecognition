@@ -16,6 +16,7 @@ public class Displayer {
     JFrame frame;
     CheckersPanel panel;
 
+    Game game;
     Tile[][] tiles;
 
     public Displayer(Game game) {
@@ -31,6 +32,8 @@ public class Displayer {
         frame.getContentPane().add(BorderLayout.CENTER, panel);
         frame.setVisible(true);
 
+        this.game = game;
+        // @@@ refactor below so VIEW doesn't mutate MODEL (send request for CONTROLLER to change MODEL's state) @@@
         tiles = game.getBoard().getTiles();
 
     } // **** end Displayer(int, int) constructor ****
@@ -100,6 +103,8 @@ public class Displayer {
 
         @Override
         public void mouseClicked(MouseEvent e) {
+
+
             for (Tile[] ti : tiles) {
                 for (Tile t : ti) {
                     if ( t.getBound().contains(e.getX(), e.getY()) ) {
