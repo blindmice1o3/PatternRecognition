@@ -1,4 +1,4 @@
-package model.entity;
+package edu.pooh.chess.model.entity;
 
 import java.awt.*;
 

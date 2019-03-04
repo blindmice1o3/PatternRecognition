@@ -1,7 +1,7 @@
-package model.board;
+package edu.pooh.chess.model.board;
 
 
-import model.entity.Token;
+import edu.pooh.chess.model.entity.Token;
 
 import java.awt.*;
 

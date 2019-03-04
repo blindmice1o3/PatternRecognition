@@ -1,7 +1,7 @@
-package controller;
+package edu.pooh.chess.controller;
 
-import model.board.Board;
-import view.Displayer;
+import edu.pooh.chess.model.board.Board;
+import edu.pooh.chess.view.Displayer;
 
 public class Game {
 
@@ -13,9 +13,8 @@ public class Game {
         board = new Board();
         displayer = new Displayer(this);
 
-        initGame();
 
-    } // **** end controller.Game() constructor ****
+    } // **** end edu.pooh.chess.controller.Game() constructor ****
 
 
 
@@ -31,4 +30,4 @@ public class Game {
     }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-} // **** end controller.Game class ****
+} // **** end edu.pooh.chess.controller.Game class ****

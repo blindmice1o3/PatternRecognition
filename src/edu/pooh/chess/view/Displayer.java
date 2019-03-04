@@ -1,7 +1,7 @@
-package view;
+package edu.pooh.chess.view;
 
-import controller.Game;
-import model.board.Tile;
+import edu.pooh.chess.controller.Game;
+import edu.pooh.chess.model.board.Tile;
 
 import javax.swing.*;
 import java.awt.*;
