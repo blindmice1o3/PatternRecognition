@@ -20,6 +20,7 @@ public class Game extends Canvas implements Runnable {
         controller = new Controller();
         camera = new Camera(0, 0);
         this.addKeyListener(new KeyInput(controller));
+        this.addMouseListener(new MouseInput(controller, camera));
 
         BufferedImageLoader loader = new BufferedImageLoader();
         level = loader.loadImage("/wizard_level.png");
