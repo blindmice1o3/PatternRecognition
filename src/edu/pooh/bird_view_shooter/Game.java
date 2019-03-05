@@ -9,6 +9,7 @@ public class Game extends Canvas implements Runnable {
     private boolean isRunning = false;
     private Thread thread;
     private Controller controller;
+    private Camera camera;
 
     private BufferedImage level = null;
 
@@ -17,6 +18,7 @@ public class Game extends Canvas implements Runnable {
         start();
 
         controller = new Controller();
+        camera = new Camera(0, 0);
         this.addKeyListener(new KeyInput(controller));
 
         BufferedImageLoader loader = new BufferedImageLoader();
@@ -72,6 +74,14 @@ public class Game extends Canvas implements Runnable {
 
     public void tick() {
 
+        // Loop through all GameObject objects stored in controller's LinkedList<GameObject> to find the player.
+        // Call the player's tick(GameObject) method, which uses the player's coordinate.
+        for (int i = 0; i < controller.object.size(); i++) {
+            if (controller.object.get(i).getId() == ID.Player) {
+                camera.tick(controller.object.get(i));
+            }
+        }
+
         //////////////////////////////////
 
         controller.tick();
@@ -88,12 +98,17 @@ public class Game extends Canvas implements Runnable {
         }
 
         Graphics g = bs.getDrawGraphics();
+        Graphics2D g2d = (Graphics2D)g;
         /////////////////////////////////////////////
 
         g.setColor(Color.RED);
         g.fillRect(0, 0, 1000, 563);
 
+        g2d.translate(-camera.getX(), -camera.getY());              // Everything between the g2d.translate()
+
         controller.render(g);
+
+        g2d.translate(camera.getX(), camera.getY());                // Everything between the g2d.translate()
 
         /////////////////////////////////////////////
         g.dispose();
