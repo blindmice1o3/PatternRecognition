@@ -14,8 +14,7 @@ public class Game extends Canvas implements Runnable {
         start();
 
         controller = new Controller();
-        controller.addObject(new Box(100, 100));
-        controller.addObject(new Box(200, 100));
+        controller.addObject(new Box(100, 100, ID.Block));
     } // **** end Game() constructor ****
 
     private void start() {

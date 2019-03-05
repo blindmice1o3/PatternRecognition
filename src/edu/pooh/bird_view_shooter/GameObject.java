@@ -12,9 +12,12 @@ public abstract class GameObject {
     protected float velX = 0;
     protected float velY = 0;
 
-    public GameObject(int x, int y) {
+    protected ID id;
+
+    public GameObject(int x, int y, ID id) {
         this.x = x;
         this.y = y;
+        this.id = id;
     } // **** end GameObject(int, int) constructor ****
 
     // All GameObject-subclass will need to update and draw itself.
@@ -24,6 +27,14 @@ public abstract class GameObject {
     public abstract Rectangle getBounds();
 
     // GETTERS & SETTERS
+    public ID getId() {
+        return id;
+    }
+
+    public void setId(ID id) {
+        this.id = id;
+    }
+
     public int getX() {
         return x;
     }
