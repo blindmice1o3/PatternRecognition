@@ -16,6 +16,8 @@ public class Wizard extends GameObject {
         x += velX;
         y += velY;
 
+        collision();
+
         // MOVEMENT
         if (controller.isUp()) {
             velY = -5;
@@ -39,6 +41,24 @@ public class Wizard extends GameObject {
             velX = -5;
         } else if (!controller.isRight()) {
             velX = 0;
+        }
+    }
+
+    private void collision() {
+        for (int i = 0; i < controller.object.size(); i++) {
+
+            GameObject tempObject = controller.object.get(i);
+
+            if (tempObject.getId() == ID.Block) {
+
+                // If the wizard's Rectangle bounds intersects with the current GameObject's Rectangle's bounds...
+                if (getBounds().intersects(tempObject.getBounds())) {
+                    x += velX * -1;
+                    y += velY * -1;
+                }
+
+            }
+
         }
     }
 
