@@ -2,12 +2,15 @@ package edu.pooh.bird_view_shooter;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
 
 public class Game extends Canvas implements Runnable {
 
     private boolean isRunning = false;
     private Thread thread;
     private Controller controller;
+
+    private BufferedImage level = null;
 
     public Game() {
         new Window(1000, 563, "Wizard Game", this);
@@ -16,7 +19,11 @@ public class Game extends Canvas implements Runnable {
         controller = new Controller();
         this.addKeyListener(new KeyInput(controller));
 
-        controller.addObject(new Wizard(100, 100, ID.Player, controller));
+        BufferedImageLoader loader = new BufferedImageLoader();
+        level = loader.loadImage("/wizard_level.png");
+
+        //controller.addObject(new Wizard(100, 100, ID.Player, controller));
+        loadLevel(level);
     } // **** end Game() constructor ****
 
     private void start() {
@@ -92,6 +99,28 @@ public class Game extends Canvas implements Runnable {
         g.dispose();
 
         bs.show();
+    }
+
+    // Loading the level.
+    private void loadLevel(BufferedImage image) {
+        int w = image.getWidth();
+        int h = image.getHeight();
+
+        for (int xx = 0; xx < w; xx++) {
+            for (int yy = 0; yy < h; yy++) {
+                int pixel = image.getRGB(xx, yy);
+                int red = (pixel >> 16) & 0xff;     // & is the bit operator??? what's '>>'???
+                int green = (pixel >> 8) & 0xff;    // looks like using hex-decimal???
+                int blue = (pixel) & 0xff;          // 16, 8, 0... "goes down by this square here"???
+
+                if (red == 255) {
+                    controller.addObject(new Block(xx*32, yy*32, ID.Block));
+                }
+                if (blue == 255) {
+                    controller.addObject(new Wizard(xx*32, yy*32, ID.Player, controller));
+                }
+            }
+        }
     }
 
     public static void main(String[] args) {
