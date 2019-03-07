@@ -11,13 +11,18 @@ public class Enemy extends GameObject {
     int choose = 0;
     int hp = 100;
 
-    private BufferedImage imageEnemy;
+    private BufferedImage[] imageEnemy = new BufferedImage[2];
+
+    Animation anim;
 
     public Enemy(int x, int y, ID id, Controller controller, SpriteSheet spriteSheet) {
         super(x, y, id, spriteSheet);
         this.controller = controller;
 
-        imageEnemy = spriteSheet.grabImage(123, 44, 16, 16);
+        imageEnemy[0] = spriteSheet.grabImage(103, 44, 16, 16);
+        imageEnemy[1] = spriteSheet.grabImage(123, 44, 16, 16);
+
+        anim = new Animation(2, imageEnemy[0], imageEnemy[1]);
     } // **** end Enemy(int, int, ID, Controller) constructor ****
 
     @Override
@@ -62,12 +67,11 @@ public class Enemy extends GameObject {
                  }
             }
 
+            anim.runAnimation();    // tick the animation.
+
             // Check to remove this enemy if its hp is 0 or less.
             if (hp <= 0) { controller.removeObject(this); }
         }
-
-
-
     }
 
     @Override
@@ -75,7 +79,9 @@ public class Enemy extends GameObject {
         //g.setColor(Color.YELLOW);
         //g.fillRect(x, y, 32, 32);
 
-        g.drawImage(imageEnemy, x, y, 32, 32, null);
+        //g.drawImage(imageEnemy, x, y, 32, 32, null);
+        anim.drawAnimation(g, x, y, 32, 32, 0);
+
 
         // To see the larger bounding box (the getBoundsBig() method).
         //Graphics2D g2d = (Graphics2D)g;

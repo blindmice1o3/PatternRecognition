@@ -8,14 +8,19 @@ public class Wizard extends GameObject {
     Controller controller;
     Game game;
 
-    private BufferedImage imageWizard;
+    private BufferedImage[] imageWizard = new BufferedImage[2];
+
+    Animation anim;
 
     public Wizard(int x, int y, ID id, Controller controller, Game game, SpriteSheet spriteSheet) {
         super(x, y, id, spriteSheet);
         this.controller = controller;
         this.game = game;
 
-        imageWizard = spriteSheet.grabImage(32, 23, 15, 18);
+        imageWizard[0] = spriteSheet.grabImage(18, 25, 11, 15);
+        imageWizard[1] = spriteSheet.grabImage(33, 24, 13, 16);
+
+        anim = new Animation(2, imageWizard[0], imageWizard[1]);
     } // **** end Wizard(int, int, ID, Controller) constructor ****
 
     @Override
@@ -27,28 +32,30 @@ public class Wizard extends GameObject {
 
         // MOVEMENT
         if (controller.isUp()) {
-            velY = -5;
+            velY = -3;
         } else if (!controller.isDown()) {
             velY = 0;
         }
 
         if (controller.isDown()) {
-            velY = 5;
+            velY = 3;
         } else if (!controller.isUp()) {
             velY = 0;
         }
 
         if (controller.isRight()) {
-            velX = 5;
+            velX = 3;
         } else if (!controller.isLeft()) {
             velX = 0;
         }
 
         if (controller.isLeft()) {
-            velX = -5;
+            velX = -3;
         } else if (!controller.isRight()) {
             velX = 0;
         }
+
+        anim.runAnimation();    // tick the animation.
     }
 
     private void collision() {
@@ -79,7 +86,14 @@ public class Wizard extends GameObject {
     public void render(Graphics g) {
         //g.setColor(Color.BLUE);
         //g.fillRect(x, y, 32, 48);
-        g.drawImage(imageWizard, x, y, 32, 48, null);
+
+        // If player is not moving, just use still image, not Animation.
+        if (velX == 0 && velY == 0) {
+            g.drawImage(imageWizard[0], x, y, 32, 48, null);
+        } else {
+            // Use Animation and player's x and y coordinate, offset equals 0.
+            anim.drawAnimation(g, x, y, 32, 48, 0);
+        }
     }
 
     @Override
