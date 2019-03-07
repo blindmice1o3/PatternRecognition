@@ -5,10 +5,12 @@ import java.awt.*;
 public class Wizard extends GameObject {
 
     Controller controller;
+    Game game;
 
-    public Wizard(int x, int y, ID id, Controller controller) {
+    public Wizard(int x, int y, ID id, Controller controller, Game game) {
         super(x, y, id);
         this.controller = controller;
+        this.game = game;
     } // **** end Wizard(int, int, ID, Controller) constructor ****
 
     @Override
@@ -49,14 +51,20 @@ public class Wizard extends GameObject {
 
             GameObject tempObject = controller.object.get(i);
 
-            if (tempObject.getId() == ID.Block) {
-
+            if (tempObject.getId() == ID.Block) {   // COLLISION with Block/wall.
                 // If the wizard's Rectangle bounds intersects with the current GameObject's Rectangle's bounds...
                 if (getBounds().intersects(tempObject.getBounds())) {
                     x += velX * -1;
                     y += velY * -1;
                 }
+            }
 
+            if (tempObject.getId() == ID.Crate) {   // COLLISION with Crate/ammo box.
+                // If the wizard's Rectangle bounds intersects with the current GameObject's Rectangle's bounds...
+                if (getBounds().intersects(tempObject.getBounds())) {
+                    game.ammo += 10;    // Adds 10 ammo to the player's supply (started with 100 in Game class).
+                    controller.removeObject(tempObject);    // Removes the Crate/ammo box from game world.
+                }
             }
 
         }

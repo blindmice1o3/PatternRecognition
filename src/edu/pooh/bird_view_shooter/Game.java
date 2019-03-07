@@ -13,6 +13,9 @@ public class Game extends Canvas implements Runnable {
 
     private BufferedImage level = null;
 
+    // Related to Ammo Crates. The player will now have a limited supply of bullets, starting at 100.
+    public int ammo = 100; // Anytime we create a bullet object in MouseInput, this decrements.
+
     public Game() {
         new Window(1000, 563, "Wizard Game", this);
         start();
@@ -20,10 +23,9 @@ public class Game extends Canvas implements Runnable {
         controller = new Controller();
         camera = new Camera(0, 0);
         this.addKeyListener(new KeyInput(controller));
-        this.addMouseListener(new MouseInput(controller, camera));
+        this.addMouseListener(new MouseInput(controller, camera, this));
 
-        BufferedImageLoader loader = new BufferedImageLoader();
-        level = loader.loadImage("/wizard_level.png");
+        level = BufferedImageLoader.loadImage("/wizard_level.png");
 
         //controller.addObject(new Wizard(100, 100, ID.Player, controller));
         loadLevel(level);
@@ -132,12 +134,16 @@ public class Game extends Canvas implements Runnable {
                 if (red == 255) {
                     controller.addObject(new Block(xx*32, yy*32, ID.Block));
                 }
-                if (blue == 255) {
-                    controller.addObject(new Wizard(xx*32, yy*32, ID.Player, controller));
+                if (blue == 255 && green == 0) {    // Added && green==0 because started using CYAN.
+                    controller.addObject(new Wizard(xx*32, yy*32, ID.Player, controller, this));
+                }   // Passing Game game because player needs access to the int ammo from Game class.
+
+                if (green == 255 && blue == 0) {    // Added && blue==0 because started using CYAN.
+                    controller.addObject(new Enemy(xx*32, yy*32, ID.Enemy, controller));
                 }
 
-                if (green == 255) {
-                    controller.addObject(new Enemy(xx*32, yy*32, ID.Enemy, controller));
+                if (green == 255 && blue == 255) {  // If CYAN... instantiate a Crate for ammo.
+                    controller.addObject(new Crate(xx*32, yy*32, ID.Crate)); // Wizard class for picking up.
                 }
             }
         }

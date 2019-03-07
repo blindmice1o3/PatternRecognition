@@ -71,9 +71,9 @@ public class Enemy extends GameObject {
         g.fillRect(x, y, 32, 32);
 
         // To see the larger bounding box (the getBoundsBig() method).
-        //Graphics2D g2d = (Graphics2D)g;
-        //g.setColor(Color.GREEN);
-        //g2d.draw(getBoundsBig());
+        Graphics2D g2d = (Graphics2D)g;
+        g.setColor(Color.GREEN);
+        g2d.draw(getBoundsBig());
     }
 
     @Override
