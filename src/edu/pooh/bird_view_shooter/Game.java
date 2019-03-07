@@ -135,6 +135,10 @@ public class Game extends Canvas implements Runnable {
                 if (blue == 255) {
                     controller.addObject(new Wizard(xx*32, yy*32, ID.Player, controller));
                 }
+
+                if (green == 255) {
+                    controller.addObject(new Enemy(xx*32, yy*32, ID.Enemy, controller));
+                }
             }
         }
     }

@@ -9,7 +9,7 @@ public class Wizard extends GameObject {
     public Wizard(int x, int y, ID id, Controller controller) {
         super(x, y, id);
         this.controller = controller;
-    } // **** end Wizard(int, int, ID) constructor ****
+    } // **** end Wizard(int, int, ID, Controller) constructor ****
 
     @Override
     public void tick() {

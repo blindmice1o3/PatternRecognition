@@ -13,7 +13,7 @@ public class Bullet extends GameObject {
         // mx and my come from MouseInput's mousePressed(MouseEvent). The direction the Bullet should travel.
         velX = (mx - x) / 10; // The divide 10 is like the total travel time... the speed from which it's going.
         velY = (my - y) / 10;
-    } // **** end Bullet(int, int, ID, Controller) constructor ****
+    } // **** end Bullet(int, int, ID, Controller, int, int) constructor ****
 
     @Override
     public void tick() {
