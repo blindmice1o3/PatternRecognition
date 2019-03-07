@@ -11,8 +11,10 @@ public class Camera {
     } // **** end Camera(float, float) constructor
 
     public void tick(GameObject object) {
-        x += ((object.getX() - x) - 1000/2) * 0.05f;
-        y += ((object.getY() - y) - 563/2) * 0.05f;
+        // Player's x minus GameCamera's x minus half the screen (so player will be centered).
+        // This is used in Game's render() method's g2d's translate(int, int) call.
+        x += ((object.getX() - x) - 1000/2) * 0.05f;    // Game's render() uses Camera's x and y for its
+        y += ((object.getY() - y) - 563/2) * 0.05f;     // g2d's translate(int, int) method call.
 
         if (x <= 0) { x = 0; }
         if (x >= 1000 + 32) { x = 1032; }

@@ -8,11 +8,13 @@ public class MouseInput extends MouseAdapter {
     private Controller controller;
     private Camera camera;
     private Game game;  // Need this to work with bullets.
+    private SpriteSheet spriteSheet;
 
-    public MouseInput(Controller controller, Camera camera, Game game) {
+    public MouseInput(Controller controller, Camera camera, Game game, SpriteSheet spriteSheet) {
         this.controller = controller;
         this.camera = camera;
         this.game = game;
+        this.spriteSheet = spriteSheet;
     } // **** end MouseInput(Controller, Camera) constructor ****
 
 
@@ -34,7 +36,7 @@ public class MouseInput extends MouseAdapter {
                 // The +16 and +24 will position the new Bullet right in the center of our player object.
                 // Without these, it will be shooting out of the top left corner of our player.
                 controller.addObject(new Bullet(tempObject.getX()+16, tempObject.getY()+24,
-                        ID.Bullet, controller, mx, my));
+                        ID.Bullet, controller, mx, my, spriteSheet));
                 // If we use/INSTANTIATE a bullet into the game world, we must decrement how many the player has.
                 game.ammo--;
             }

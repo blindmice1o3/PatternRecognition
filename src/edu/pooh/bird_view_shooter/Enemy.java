@@ -1,6 +1,7 @@
 package edu.pooh.bird_view_shooter;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.Random;
 
 public class Enemy extends GameObject {
@@ -10,9 +11,13 @@ public class Enemy extends GameObject {
     int choose = 0;
     int hp = 100;
 
-    public Enemy(int x, int y, ID id, Controller controller) {
-        super(x, y, id);
+    private BufferedImage imageEnemy;
+
+    public Enemy(int x, int y, ID id, Controller controller, SpriteSheet spriteSheet) {
+        super(x, y, id, spriteSheet);
         this.controller = controller;
+
+        imageEnemy = spriteSheet.grabImage(123, 44, 16, 16);
     } // **** end Enemy(int, int, ID, Controller) constructor ****
 
     @Override
@@ -67,13 +72,15 @@ public class Enemy extends GameObject {
 
     @Override
     public void render(Graphics g) {
-        g.setColor(Color.YELLOW);
-        g.fillRect(x, y, 32, 32);
+        //g.setColor(Color.YELLOW);
+        //g.fillRect(x, y, 32, 32);
+
+        g.drawImage(imageEnemy, x, y, 32, 32, null);
 
         // To see the larger bounding box (the getBoundsBig() method).
-        Graphics2D g2d = (Graphics2D)g;
-        g.setColor(Color.GREEN);
-        g2d.draw(getBoundsBig());
+        //Graphics2D g2d = (Graphics2D)g;
+        //g.setColor(Color.GREEN);
+        //g2d.draw(getBoundsBig());
     }
 
     @Override

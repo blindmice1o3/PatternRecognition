@@ -1,16 +1,21 @@
 package edu.pooh.bird_view_shooter;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public class Wizard extends GameObject {
 
     Controller controller;
     Game game;
 
-    public Wizard(int x, int y, ID id, Controller controller, Game game) {
-        super(x, y, id);
+    private BufferedImage imageWizard;
+
+    public Wizard(int x, int y, ID id, Controller controller, Game game, SpriteSheet spriteSheet) {
+        super(x, y, id, spriteSheet);
         this.controller = controller;
         this.game = game;
+
+        imageWizard = spriteSheet.grabImage(32, 23, 15, 18);
     } // **** end Wizard(int, int, ID, Controller) constructor ****
 
     @Override
@@ -72,8 +77,9 @@ public class Wizard extends GameObject {
 
     @Override
     public void render(Graphics g) {
-        g.setColor(Color.BLUE);
-        g.fillRect(x, y, 32, 48);
+        //g.setColor(Color.BLUE);
+        //g.fillRect(x, y, 32, 48);
+        g.drawImage(imageWizard, x, y, 32, 48, null);
     }
 
     @Override

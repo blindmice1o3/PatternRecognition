@@ -10,8 +10,11 @@ public class Game extends Canvas implements Runnable {
     private Thread thread;
     private Controller controller;
     private Camera camera;
+    private SpriteSheet spriteSheet;
 
     private BufferedImage level = null;
+    private BufferedImage imageSpriteSheet = null;
+    private BufferedImage imageFloor = null;             // Background use to be red, now it's a cropped BufferedImage.
 
     // Related to Ammo Crates. The player will now have a limited supply of bullets, starting at 100.
     public int ammo = 100; // Anytime we create a bullet object in MouseInput, this decrements.
@@ -23,9 +26,17 @@ public class Game extends Canvas implements Runnable {
         controller = new Controller();
         camera = new Camera(0, 0);
         this.addKeyListener(new KeyInput(controller));
-        this.addMouseListener(new MouseInput(controller, camera, this));
 
         level = BufferedImageLoader.loadImage("/wizard_level.png");
+        imageSpriteSheet = BufferedImageLoader.loadImage("/NES - Super Mario Bros 3 - Battle Mini Game.png");
+
+        // Only AFTER we load our image!!! Otherwise imageSpriteSheet is null.
+        spriteSheet = new SpriteSheet(imageSpriteSheet);    // GameObject constructor will use SpriteSheet object.
+
+        imageFloor = spriteSheet.grabImage(81, 146, 15, 15);
+
+        // Since MouseInput constructor now takes a SpriteSheet, we moved this line to be after SpriteSheet instantiation.
+        this.addMouseListener(new MouseInput(controller, camera, this, spriteSheet));
 
         //controller.addObject(new Wizard(100, 100, ID.Player, controller));
         loadLevel(level);
@@ -104,14 +115,19 @@ public class Game extends Canvas implements Runnable {
         Graphics2D g2d = (Graphics2D)g;
         /////////////////////////////////////////////
 
-        g.setColor(Color.RED);
-        g.fillRect(0, 0, 1000, 563);
+        // translate(int, int) changes the coordinate system to use the arguments as the g2d's new origin (0, 0).
+        g2d.translate(-camera.getX(), -camera.getY());  // Everything between the g2d.translate()
 
-        g2d.translate(-camera.getX(), -camera.getY());              // Everything between the g2d.translate()
+        // Nested for-loop to draw the floor image.
+        for (int xx = 0; xx < 30*72; xx += 32) { // +=32 because that's the size of floor's width
+            for (int yy = 0; yy < 30*72; yy += 32) { // RealTutsGML said the 30*72 is "what worked before".
+                g.drawImage(imageFloor, xx, yy, 32, 32, null);
+            }
+        }
 
         controller.render(g);
 
-        g2d.translate(camera.getX(), camera.getY());                // Everything between the g2d.translate()
+        g2d.translate(camera.getX(), camera.getY());    // Everything between the g2d.translate()
 
         /////////////////////////////////////////////
         g.dispose();
@@ -132,18 +148,18 @@ public class Game extends Canvas implements Runnable {
                 int blue = (pixel) & 0xff;          // 16, 8, 0... "goes down by this square here"???
 
                 if (red == 255) {
-                    controller.addObject(new Block(xx*32, yy*32, ID.Block));
+                    controller.addObject(new Block(xx*32, yy*32, ID.Block, spriteSheet));
                 }
                 if (blue == 255 && green == 0) {    // Added && green==0 because started using CYAN.
-                    controller.addObject(new Wizard(xx*32, yy*32, ID.Player, controller, this));
+                    controller.addObject(new Wizard(xx*32, yy*32, ID.Player, controller, this, spriteSheet));
                 }   // Passing Game game because player needs access to the int ammo from Game class.
 
                 if (green == 255 && blue == 0) {    // Added && blue==0 because started using CYAN.
-                    controller.addObject(new Enemy(xx*32, yy*32, ID.Enemy, controller));
+                    controller.addObject(new Enemy(xx*32, yy*32, ID.Enemy, controller, spriteSheet));
                 }
 
                 if (green == 255 && blue == 255) {  // If CYAN... instantiate a Crate for ammo.
-                    controller.addObject(new Crate(xx*32, yy*32, ID.Crate)); // Wizard class for picking up.
+                    controller.addObject(new Crate(xx*32, yy*32, ID.Crate, spriteSheet)); // Wizard class for picking up.
                 }
             }
         }

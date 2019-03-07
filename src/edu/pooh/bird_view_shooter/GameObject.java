@@ -14,10 +14,13 @@ public abstract class GameObject {
 
     protected ID id;
 
-    public GameObject(int x, int y, ID id) {
+    protected SpriteSheet spriteSheet;
+
+    public GameObject(int x, int y, ID id, SpriteSheet spriteSheet) {
         this.x = x;
         this.y = y;
         this.id = id;
+        this.spriteSheet = spriteSheet;
     } // **** end GameObject(int, int) constructor ****
 
     // All GameObject-subclass will need to update and draw itself.

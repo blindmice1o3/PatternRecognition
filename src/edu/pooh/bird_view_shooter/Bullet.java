@@ -6,8 +6,8 @@ public class Bullet extends GameObject {
 
     private Controller controller;
 
-    public Bullet(int x, int y, ID id, Controller controller, int mx, int my) {
-        super(x, y, id);
+    public Bullet(int x, int y, ID id, Controller controller, int mx, int my, SpriteSheet spriteSheet) {
+        super(x, y, id, spriteSheet);
         this.controller = controller;
 
         // mx and my come from MouseInput's mousePressed(MouseEvent). The direction the Bullet should travel.
