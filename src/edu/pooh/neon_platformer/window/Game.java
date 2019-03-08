@@ -1,5 +1,7 @@
 package edu.pooh.neon_platformer.window;
 
+import edu.pooh.neon_platformer.framework.GameObject;
+
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 
@@ -51,6 +53,7 @@ public class Game extends Canvas implements Runnable {
     private void tick() {
 
     }
+
     private void render() {
         BufferStrategy bs = this.getBufferStrategy();
         if (bs == null) {
