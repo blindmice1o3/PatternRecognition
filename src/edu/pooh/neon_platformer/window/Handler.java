@@ -1,6 +1,8 @@
 package edu.pooh.neon_platformer.window;
 
 import edu.pooh.neon_platformer.framework.GameObject;
+import edu.pooh.neon_platformer.framework.ObjectId;
+import edu.pooh.neon_platformer.objects.Block;
 
 import java.awt.*;
 import java.util.LinkedList;
@@ -42,5 +44,10 @@ public class Handler {
         this.object.remove(object);
     }
 
+    public void createLevel() {
+        for (int xx = 0; xx < Game.WIDTH+32; xx += 32) {
+            addObject(new Block(xx, Game.HEIGHT-64, ObjectId.BLOCK));
+        }
+    }
 
 } // **** end Handler class ****

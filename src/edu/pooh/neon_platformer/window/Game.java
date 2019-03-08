@@ -1,8 +1,7 @@
 package edu.pooh.neon_platformer.window;
 
-import edu.pooh.neon_platformer.framework.GameObject;
 import edu.pooh.neon_platformer.framework.ObjectId;
-import edu.pooh.neon_platformer.objects.Test;
+import edu.pooh.neon_platformer.objects.Block;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;
@@ -13,17 +12,20 @@ public class Game extends Canvas implements Runnable {
     private boolean running = false;
     private Thread thread;
 
+    public static int WIDTH, HEIGHT;
+
     // Objects
     Handler handler;
 
     Random rand = new Random();
 
     private void init() {
+        WIDTH = getWidth();
+        HEIGHT = getHeight();
+
         handler = new Handler();
 
-        for (int i = 0; i < 50; i++) {
-            handler.addObject(new Test(rand.nextInt(800), rand.nextInt(600), ObjectId.Test));
-        }
+        handler.createLevel();
     }
 
     public synchronized void start() {
