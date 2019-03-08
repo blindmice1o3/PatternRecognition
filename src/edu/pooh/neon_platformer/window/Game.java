@@ -2,6 +2,7 @@ package edu.pooh.neon_platformer.window;
 
 import edu.pooh.neon_platformer.framework.ObjectId;
 import edu.pooh.neon_platformer.objects.Block;
+import edu.pooh.neon_platformer.objects.Player;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;
@@ -24,6 +25,8 @@ public class Game extends Canvas implements Runnable {
         HEIGHT = getHeight();
 
         handler = new Handler();
+
+        handler.addObject(new Player(100, 100, ObjectId.PLAYER));
 
         handler.createLevel();
     }
