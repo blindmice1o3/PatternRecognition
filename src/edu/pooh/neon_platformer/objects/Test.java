@@ -19,7 +19,8 @@ public class Test extends GameObject {
 
     @Override
     public void render(Graphics g) {
-
+        g.setColor(Color.RED);
+        g.fillRect((int)x, (int)y, 32, 32);
     }
 
     @Override

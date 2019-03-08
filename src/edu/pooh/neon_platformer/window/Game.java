@@ -1,14 +1,30 @@
 package edu.pooh.neon_platformer.window;
 
 import edu.pooh.neon_platformer.framework.GameObject;
+import edu.pooh.neon_platformer.framework.ObjectId;
+import edu.pooh.neon_platformer.objects.Test;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;
+import java.util.Random;
 
 public class Game extends Canvas implements Runnable {
 
     private boolean running = false;
     private Thread thread;
+
+    // Objects
+    Handler handler;
+
+    Random rand = new Random();
+
+    private void init() {
+        handler = new Handler();
+
+        for (int i = 0; i < 50; i++) {
+            handler.addObject(new Test(rand.nextInt(800), rand.nextInt(600), ObjectId.Test));
+        }
+    }
 
     public synchronized void start() {
         if (running) {
@@ -22,6 +38,9 @@ public class Game extends Canvas implements Runnable {
 
     @Override
     public void run() {
+        init();
+
+        this.requestFocus();
         long lastTime = System.nanoTime();
         double amountOfTicks = 60.0;
         double ns = 1000000000 / amountOfTicks;
@@ -51,7 +70,7 @@ public class Game extends Canvas implements Runnable {
     }
 
     private void tick() {
-
+        handler.tick();
     }
 
     private void render() {
@@ -67,6 +86,7 @@ public class Game extends Canvas implements Runnable {
         g.setColor(Color.BLACK);
         g.fillRect(0, 0, getWidth(), getHeight());
 
+        handler.render(g);
         ///////////////////////////////////////////////
         g.dispose();
         bs.show();
