@@ -18,6 +18,7 @@ public class Game extends Canvas implements Runnable {
 
     // Related to Ammo Crates. The player will now have a limited supply of bullets, starting at 100.
     public int ammo = 100; // Anytime we create a bullet object in MouseInput, this decrements.
+    public int hp = 100;
 
     public Game() {
         new Window(1000, 563, "Wizard Game", this);
@@ -128,6 +129,21 @@ public class Game extends Canvas implements Runnable {
         controller.render(g);
 
         g2d.translate(camera.getX(), camera.getY());    // Everything between the g2d.translate()
+
+        // Health bar and ammo indicator.
+        // Put the following outside of the g2d.translate()...
+        // because we don't want it to translate in the world, we want it to always be there visible for us.
+        // Also, should be below controller.render(Graphics) or else it'll be behind the background.
+        // Creating the background for it.
+        g.setColor(Color.GRAY);
+        g.fillRect(5, 5, 200, 32);      // width is 200 pixels
+        g.setColor(Color.GREEN);
+        g.fillRect(5, 5, hp * 2, 32);   // hp * 2 IS STILL width of 200 pixels
+        g.setColor(Color.BLACK);
+        g.drawRect(5, 5, 200, 32);      // This is just for an outline.
+
+        g.setColor(Color.WHITE);
+        g.drawString("Ammo: " + ammo, 5, 50);     // The ammo indicator.
 
         /////////////////////////////////////////////
         g.dispose();

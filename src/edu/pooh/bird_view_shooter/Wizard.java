@@ -79,6 +79,13 @@ public class Wizard extends GameObject {
                 }
             }
 
+            if (tempObject.getId() == ID.Enemy) {   // COLLISION with Enemy.
+                // If the wizard's Rectangle bounds intersects with the current GameObject's Rectangle's bounds...
+                if (getBounds().intersects(tempObject.getBounds())) {
+                    game.hp--;    // Decrement 1 hp from the Game class's hp variable (started with 100).
+                }
+            }
+
         }
     }
 
