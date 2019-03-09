@@ -1,5 +1,6 @@
 package edu.pooh.neon_platformer.window;
 
+import edu.pooh.neon_platformer.framework.KeyInput;
 import edu.pooh.neon_platformer.framework.ObjectId;
 import edu.pooh.neon_platformer.objects.Block;
 import edu.pooh.neon_platformer.objects.Player;
@@ -26,9 +27,11 @@ public class Game extends Canvas implements Runnable {
 
         handler = new Handler();
 
-        handler.addObject(new Player(100, 100, ObjectId.PLAYER));
+        handler.addObject(new Player(100, 100, handler, ObjectId.PLAYER));
 
         handler.createLevel();
+
+        this.addKeyListener(new KeyInput(handler));
     }
 
     public synchronized void start() {

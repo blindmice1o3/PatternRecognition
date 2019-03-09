@@ -2,6 +2,7 @@ package edu.pooh.neon_platformer.objects;
 
 import edu.pooh.neon_platformer.framework.GameObject;
 import edu.pooh.neon_platformer.framework.ObjectId;
+import edu.pooh.neon_platformer.window.Handler;
 
 import java.awt.*;
 import java.util.LinkedList;
@@ -14,8 +15,11 @@ public class Player extends GameObject {
     private float gravity = 0.5f;
     private final float MAX_SPEED = 10;
 
-    public Player(float x, float y, ObjectId id) {
+    private Handler handler;
+
+    public Player(float x, float y, Handler handler, ObjectId id) {
         super(x, y, id);
+        this.handler = handler;
     } // **** end Player(float, float, ObjectId) constructor ****
 
     @Override
@@ -33,6 +37,27 @@ public class Player extends GameObject {
             }
         }
 
+        collision(object);
+    }
+
+    private void collision(LinkedList<GameObject> object) {
+        for (int i = 0; i < handler.object.size(); i++) {
+            GameObject tempObject = handler.object.get(i);
+
+            // If player collides with block, top it's downward (velY) motion.
+            // Set the boolean falling and boolean jumping to false.
+            // Set the player's y position to be the block's top-left (origin) minus the height of the player
+            // (i.e. have the player's top-left (origin) be player.height number of pixels above the block.
+            if (tempObject.getId() == ObjectId.BLOCK) {
+                if (getBounds().intersects(tempObject.getBounds())) {
+                    y = tempObject.getY() - height;
+
+                    velY = 0;
+                    falling = false;
+                    jumping = false;
+                }
+            }
+        }
     }
 
     @Override
