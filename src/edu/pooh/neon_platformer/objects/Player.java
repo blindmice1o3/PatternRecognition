@@ -12,7 +12,7 @@ public class Player extends GameObject {
     private float width = 48;
     private float height = 96;
 
-    private float gravity = 0.05f;
+    private float gravity = 0.5f;
     private final float MAX_SPEED = 10;
 
     private Handler handler;
@@ -49,13 +49,34 @@ public class Player extends GameObject {
             // Set the player's y position to be the block's top-left (origin) minus the height of the player
             // (i.e. have the player's top-left (origin) be player.height number of pixels above the block.
             if (tempObject.getId() == ObjectId.BLOCK) {
+
+                //Top
+                if (getBoundsTop().intersects(tempObject.getBounds())) {
+                    y = tempObject.getY() + 32;
+                    velY = 0;
+                }
+
+                //Bottom
                 if (getBounds().intersects(tempObject.getBounds())) {
                     y = tempObject.getY() - height;
-
                     velY = 0;
                     falling = false;
                     jumping = false;
+                } else {
+                    falling = true;
                 }
+
+                //Right
+                if (getBoundsRight().intersects(tempObject.getBounds())) {
+                    x = tempObject.getX() - width;
+                }
+
+                //Left
+                if (getBoundsLeft().intersects(tempObject.getBounds())) {
+                    x = tempObject.getX() + 35;
+                }
+
+
             }
         }
     }
