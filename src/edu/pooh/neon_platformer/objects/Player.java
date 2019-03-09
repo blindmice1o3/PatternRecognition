@@ -12,7 +12,7 @@ public class Player extends GameObject {
     private float width = 48;
     private float height = 96;
 
-    private float gravity = 0.5f;
+    private float gravity = 0.05f;
     private final float MAX_SPEED = 10;
 
     private Handler handler;
@@ -25,7 +25,7 @@ public class Player extends GameObject {
     @Override
     public void tick(LinkedList<GameObject> object) {
         x += velX;
-        //y += velY;
+        y += velY;
 
         if (falling || jumping) {
             velY += gravity;
