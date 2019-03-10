@@ -18,6 +18,7 @@ public class Game extends Canvas implements Runnable {
 
     // Objects
     Handler handler;
+    Camera camera;
 
     Random rand = new Random();
 
@@ -26,6 +27,8 @@ public class Game extends Canvas implements Runnable {
         HEIGHT = getHeight();
 
         handler = new Handler();
+
+        camera = new Camera(0, 0);
 
         handler.addObject(new Player(100, 100, handler, ObjectId.PLAYER));
 
@@ -79,6 +82,12 @@ public class Game extends Canvas implements Runnable {
 
     private void tick() {
         handler.tick();
+
+        for (int i = 0; i < handler.object.size(); i++) {
+            if (handler.object.get(i).getId() == ObjectId.PLAYER) {
+                camera.tick(handler.object.get(i));
+            }
+        }
     }
 
     private void render() {
@@ -89,12 +98,18 @@ public class Game extends Canvas implements Runnable {
         }
 
         Graphics g = bs.getDrawGraphics();
+        Graphics2D g2d = (Graphics2D)g;
         ///////////////////////////////////////////////
         // Draw here.
         g.setColor(Color.BLACK);
         g.fillRect(0, 0, getWidth(), getHeight());
 
+
+        g2d.translate(camera.getX(), camera.getY());    //Begin of camera.
+
         handler.render(g);
+
+        g2d.translate(-camera.getX(), -camera.getY());  //End of camera.
         ///////////////////////////////////////////////
         g.dispose();
         bs.show();
