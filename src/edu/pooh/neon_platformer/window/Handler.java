@@ -45,6 +45,8 @@ public class Handler {
     }
 
     public void createLevel() {
+
+        /*
         //Vertical left
         for (int yy = 0; yy < Game.HEIGHT+32; yy += 32) {
             addObject(new Block(0, yy, ObjectId.BLOCK));
@@ -58,6 +60,7 @@ public class Handler {
         for (int xx = 200; xx < 600; xx += 32) {
             addObject(new Block(xx, 400, ObjectId.BLOCK));
         }
+        */
     }
 
 } // **** end Handler class ****

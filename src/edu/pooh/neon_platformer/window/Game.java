@@ -2,6 +2,7 @@ package edu.pooh.neon_platformer.window;
 
 import edu.pooh.neon_platformer.framework.KeyInput;
 import edu.pooh.neon_platformer.framework.ObjectId;
+import edu.pooh.neon_platformer.framework.Texture;
 import edu.pooh.neon_platformer.objects.Block;
 import edu.pooh.neon_platformer.objects.Player;
 
@@ -22,12 +23,15 @@ public class Game extends Canvas implements Runnable {
     // Objects
     Handler handler;
     Camera camera;
+    static Texture texture;
 
     Random rand = new Random();
 
     private void init() {
         WIDTH = getWidth();
         HEIGHT = getHeight();
+
+        texture = new Texture();
 
         BufferedImageLoader loader = new BufferedImageLoader();
         level = loader.loadImage("/wizard_level.png"); //loading the level
@@ -138,13 +142,17 @@ public class Game extends Canvas implements Runnable {
 
 
                 if (red == 255 && green == 0 && blue == 0) {
-                    handler.addObject(new Block(xx*32, yy*32, ObjectId.BLOCK));
+                    handler.addObject(new Block(xx*32, yy*32, 0, ObjectId.BLOCK));
                 }
                 if (red == 0 && green == 0 && blue == 255) {
                     handler.addObject(new Player(xx*32, yy*32, handler, ObjectId.PLAYER));
                 }
            }
         }
+    }
+
+    public static Texture getInstance() {
+        return texture;
     }
 
     public static void main(String[] args) {

@@ -2,6 +2,8 @@ package edu.pooh.neon_platformer.objects;
 
 import edu.pooh.neon_platformer.framework.GameObject;
 import edu.pooh.neon_platformer.framework.ObjectId;
+import edu.pooh.neon_platformer.framework.Texture;
+import edu.pooh.neon_platformer.window.Game;
 import edu.pooh.neon_platformer.window.Handler;
 
 import java.awt.*;
@@ -14,6 +16,8 @@ public class Player extends GameObject {
 
     private float gravity = 0.5f;
     private final float MAX_SPEED = 10;
+
+    Texture texture = Game.getInstance();
 
     private Handler handler;
 
@@ -84,7 +88,8 @@ public class Player extends GameObject {
     @Override
     public void render(Graphics g) {
         g.setColor(Color.BLUE);
-        g.fillRect((int)x, (int)y, (int)width, (int)height);
+        g.drawImage(texture.player[0], (int)x, (int)y, 48, 96, null);
+        //g.fillRect((int)x, (int)y, (int)width, (int)height);
 
         Graphics2D g2d = (Graphics2D)g;
         g.setColor(Color.RED);
