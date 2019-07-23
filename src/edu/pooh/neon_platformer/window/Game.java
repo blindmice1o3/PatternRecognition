@@ -59,12 +59,12 @@ public class Game extends Canvas implements Runnable {
 
     @Override
     public void run() {
-        init();
+
 
         this.requestFocus();
         long lastTime = System.nanoTime();
         double amountOfTicks = 60.0;
-        double ns = 1000000000 / amountOfTicks;
+        double ns = 1000000000 / amountOfTicks;init();
         double delta = 0;
         long timer = System.currentTimeMillis();
         int updates = 0;
